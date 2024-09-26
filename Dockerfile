@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     python3.10 \
     python3-pip \
     git \
-    wget
+    wget \
+    build-essential
 
 # Clean up to reduce image size
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
@@ -27,6 +28,9 @@ WORKDIR /comfyui
 # Install ComfyUI dependencies
 RUN pip3 install --upgrade --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
     && pip3 install --upgrade -r requirements.txt
+
+#Install Insightface
+RUN pip install insightface==0.7.3
 
 # Install runpod
 RUN pip3 install runpod requests
